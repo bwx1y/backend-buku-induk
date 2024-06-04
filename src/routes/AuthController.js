@@ -2,6 +2,7 @@ const { Router } = require("express");
 const { Models } = require("../models");
 const { v4: uuidv4 } = require("uuid");
 const { loginRequest, generateTokenRequest, getMeRequest } = require("../DTO/login-request");
+const nodemailer = require("nodemailer");
 
 const router = Router();
 
@@ -29,7 +30,32 @@ router.post("/login", loginRequest, async (req, res) => {
     return;
   }
 
+  // const transporter = nodemailer.createTransport({
+  //   host: "smtp.elasticemail.com",
+  //   port: 2525,
+  //   secure: false,
+  //   auth: {
+  //     user: "nedynugroho2007@gmail.com",
+  //     pass: "8DADBBAD601E031C75B1E92937DEB35E1662",
+  //   },
+  // });
+
   const code = makeRandomString(5);
+
+  // transporter.sendMail(
+  //   {
+  //     from: "nedynugroho2007@gmail.com",
+  //     to: data.email,
+  //     subject: "Buku Induk Code",
+  //     html: `<h1>Your Code: ${code}</>`,
+  //   },
+  //   (err, info) => {
+  //     if (err) {
+  //       res.status(500).json(err.message);
+  //       return;
+  //     }
+  //   }
+  // );
 
   await Models.user.update(
     {
